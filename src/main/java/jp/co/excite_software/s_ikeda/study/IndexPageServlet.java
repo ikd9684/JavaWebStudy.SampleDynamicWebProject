@@ -48,19 +48,23 @@ public class IndexPageServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String sql = "select "
-                + " TE.EMPLOYEE_NUMBER "
-                + ",TE.FAMILY_NAME "
-                + ",TE.GIVEN_NAME "
-                + ",TE.MAIL_ADDRESS "
-                + ",MP.NAME "
+        String sql = "select"
+                + " TE.EMPLOYEE_NUMBER"
+                + ",TE.FAMILY_NAME"
+                + ",TE.GIVEN_NAME"
+                + ",TE.MAIL_ADDRESS"
+                + ",MP.NAME"
                 + ",TE.JOINING_DATE "
-                + "from "
+                + "from"
                 + " TRN_EMPLOYEES TE "
-                + "left join TRN_EMPLOYEE_POSITIONS TP "
+                + "left join TRN_EMPLOYEE_POSITIONS TP"
                 + " on TP.EMPLOYEE_ID = TE.ID "
-                + "left join MST_POSITIONS MP "
-                + " on MP.ID = TP.POSITION_ID ";
+                + "left join MST_POSITIONS MP"
+                + " on MP.ID = TP.POSITION_ID "
+                + "order by"
+                + " DISPLAY_ORDER is null asc"
+                + ",DISPLAY_ORDER"
+                + ",JOINING_DATE";
 
         response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = response.getWriter();
