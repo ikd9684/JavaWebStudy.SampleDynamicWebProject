@@ -31,15 +31,15 @@ public class IndexPageServlet extends HttpServlet {
     private static final String DB_USER = "excite";
     private static final String DB_PSWD = "excite";
 
-    private final String url;
+    private static final String DB_URL = "jdbc:mariadb://" +
+            System.getenv("DB_HOST") + ":" + DB_PORT + "/" +
+            DB_NAME + "?UTF-8&serverTimezone=JST";
 
     /**
      * Default constructor. 
      */
     public IndexPageServlet() {
 
-        String dbHost = System.getenv("DB_HOST");
-        url = "jdbc:mariadb://" + dbHost + ":" + DB_PORT + "/" + DB_NAME + "?UTF-8&serverTimezone=JST";
     }
 
     /**
@@ -84,7 +84,7 @@ public class IndexPageServlet extends HttpServlet {
         out.append("<table>");
 
         try (
-                Connection connect = DriverManager.getConnection(url, DB_USER, DB_PSWD);
+                Connection connect = DriverManager.getConnection(DB_URL, DB_USER, DB_PSWD);
                 PreparedStatement ps = connect.prepareStatement(sql);) {
 
             ResultSet rs = ps.executeQuery();
